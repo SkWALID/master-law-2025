@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>بوابة ماستر قانون الرقمنة</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #004999;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    header img {
+      width: 100px;
+      display: block;
+      margin: 0 auto 10px;
+    }
+    main {
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-top: 30px;
+    }
+    .search-box {
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .law-results {
+      margin-top: 20px;
+    }
+    .law-item {
+      background-color: #eef1f6;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="images/logo.jpg" alt="شعار الماستر">
+    <h1>بوابة ماستر قانون الرقمنة والمعاملات الإلكترونية</h1>
+    <p>مرحبًا بك، طالب المعرفة القانونية الرقمية!</p>
+  </header>
+
+  <main>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="ابحث عن قانون أو مادة...">
+    </div>
+    <div class="law-results" id="resultsBox"></div>
+  </main>
+
+  <script>
+    const laws = [
+      { title: "قانون 05.20", content: "يتعلق بالأمن السيبراني في المغرب." },
+      { title: "قانون 53.05", content: "ينظم التوقيع الإلكتروني والمعاملات الإلكترونية." },
+      { title: "قانون 09.08", content: "خاص بحماية المعطيات ذات الطابع الشخصي." },
+      { title: "قانون الالتزامات والعقود", content: "ينظم العلاقات المدنية بين الأشخاص." }
+    ];
+
+    const input = document.getElementById("searchInput");
+    const resultsBox = document.getElementById("resultsBox");
+
+    input.addEventListener("input", () => {
+      const query = input.value.trim().toLowerCase();
+      resultsBox.innerHTML = "";
+
+      if (query.length > 1) {
+        const filtered = laws.filter(law =>
+          law.title.toLowerCase().includes(query) ||
+          law.content.toLowerCase().includes(query)
+        );
+
+        if (filtered.length === 0) {
+          resultsBox.innerHTML = "<p>لم يتم العثور على نتائج.</p>";
+        } else {
+          filtered.forEach(law => {
+            const div = document.createElement("div");
+            div.className = "law-item";
+            div.innerHTML = `<strong>${law.title}</strong><br>${law.content}`;
+            resultsBox.appendChild(div);
+          });
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
